@@ -1,0 +1,20 @@
+[
+
+  {
+    "name": "blender",
+    "sevenLetters": [ "blender", "reblend" ],
+    "sixLetters": [ "bender", "lender", "relend" ],
+    "fiveLetters": [ "bleed", "blend", "breed", "elder", "rebel" ],
+    "fourLetters": [ "been", "beer", "bend", "bled", "bred", "deer", "leer", "lend", "need", "nerd", "reed", "reel", "rend" ],
+    "threeLetters": [ "bed", "bee", "den", "eel", "end", "led", "red" ]
+  },
+
+  {
+    "name": "honours",
+    "sevenLetters": [ "honours" ],
+    "sixLetters": [ "onrush", "honour"],
+    "fiveLetters": [ "horns", "hours", "shorn" ],
+    "fourLetters": [ "horn", "hour", "onus", "ours", "runs", "rush", "shun", "soon", "sour", "urns" ],
+    "threeLetters": [ "nor", "our", "run", "son", "sun" ]
+  }
+]
