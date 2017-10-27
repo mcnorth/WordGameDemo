@@ -20,18 +20,28 @@ namespace WordGameDemo
 
             var wordList = JsonConvert.DeserializeObject<List<Word>>(json);
 
-            CreateNewGame(wordList);
+            DisplayWord(wordList);
         }
 
-        public void CreateNewGame(List<Word> wordlist)
+        public void DisplayWord(List<Word> wordlist)
         {
             Random rnd = new Random();
             int r = rnd.Next(wordlist.Count);
             Word w = wordlist[r];
-            HtmlGenericControl tileControl = new HtmlGenericControl();
-            tileControl.TagName = "p";
-            tileControl.Attributes["class"] = "tile";
-            wordPanel.Controls.Add(tileControl);
+            
+
+            var letterArray = w.Name.ToArray();
+
+            for(int i=0; i < letterArray.Length; i++)
+            {
+                HtmlGenericControl tileControl = new HtmlGenericControl();
+                tileControl.TagName = "p";
+                tileControl.Attributes["class"] = "tile";
+                tileControl.InnerText = letterArray[i].ToString().ToUpper();
+                wordPanel.Controls.Add(tileControl);
+            }
+
+            
 
         }
     }

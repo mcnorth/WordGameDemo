@@ -11,7 +11,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <div class="container">
             <asp:Panel ID="answerPanel" runat="server"></asp:Panel>
             <asp:Panel ID="wordPanel" runat="server"></asp:Panel>
         </div>
