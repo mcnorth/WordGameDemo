@@ -36,14 +36,21 @@ namespace WordGameDemo
 
             for(int i=0; i < shuffledLetters.Length; i++)
             {
-                HtmlGenericControl tileControl = new HtmlGenericControl();
-                tileControl.TagName = "p";
+                Button tileControl = new Button();
                 tileControl.Attributes["class"] = "tile";
-                tileControl.InnerText = shuffledLetters[i].ToString().ToUpper();
+                tileControl.Attributes["id"] = shuffledLetters[i] + i.ToString();
+                tileControl.Text = shuffledLetters[i].ToString().ToUpper();
+                tileControl.Click += TileControl_Click;
                 wordPanel.Controls.Add(tileControl);
+                
             }
 
             DisplayAnswers(w);
+        }
+
+        private void TileControl_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public void DisplayAnswers (Word w)
