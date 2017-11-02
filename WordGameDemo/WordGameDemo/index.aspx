@@ -12,6 +12,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        
         <div class="container">
             <div class="row" id="nameWord">
                 <asp:Panel ID ="nameWordPanel" runat="server"></asp:Panel>
@@ -31,7 +32,15 @@
                 </div>               
             </div>
             <br />
-            <asp:Panel ID="guessPanel" runat="server"></asp:Panel>
+            <div ID="guessPanel">
+                <asp:Label ID="g1" CssClass="guesstile" runat="server"></asp:Label>
+                <asp:Label ID="g2" CssClass="guesstile" runat="server"></asp:Label>
+                <asp:Label ID="g3" CssClass="guesstile" runat="server"></asp:Label>
+                <asp:Label ID="g4" CssClass="guesstile" runat="server"></asp:Label>
+                <asp:Label ID="g5" CssClass="guesstile" runat="server"></asp:Label>
+                <asp:Label ID="g6" CssClass="guesstile" runat="server"></asp:Label>
+                <asp:Label ID="g7" CssClass="guesstile" runat="server"></asp:Label>
+            </div>
             <br />
             <asp:Panel ID="wordPanel" runat="server"></asp:Panel>
         </div>

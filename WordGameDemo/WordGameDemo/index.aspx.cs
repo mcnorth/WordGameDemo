@@ -12,8 +12,13 @@ namespace WordGameDemo
 {
     public partial class index : System.Web.UI.Page
     {
+        
+        
+        
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             string path = System.Web.HttpContext.Current.Server.MapPath("~/files/words.json");
             StreamReader rdr = new StreamReader(path);
             string json = rdr.ReadToEnd();
@@ -40,7 +45,7 @@ namespace WordGameDemo
                 tileControl.Attributes["class"] = "tile";
                 tileControl.Attributes["id"] = shuffledLetters[i] + i.ToString();
                 tileControl.Text = shuffledLetters[i].ToString().ToUpper();
-                tileControl.Click += TileControl_Click;
+                tileControl.Click += TileControl_Click;              
                 wordPanel.Controls.Add(tileControl);
                 
             }
@@ -48,9 +53,49 @@ namespace WordGameDemo
             DisplayAnswers(w);
         }
 
+        
+
         private void TileControl_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Button btn = (Button)sender;
+            string btnId = btn.ID;
+
+            if(g1.Text == "")
+            {
+                g1.Text = btn.Text;
+                
+            }
+            else if(g2.Text == "")
+            {
+                g2.Text = btn.Text;
+                
+            }
+            else if (g3.Text == "")
+            {
+                g3.Text = btn.Text;
+
+            }
+            else if (g4.Text == "")
+            {
+                g4.Text = btn.Text;
+
+            }
+            else if (g5.Text == "")
+            {
+                g5.Text = btn.Text;
+
+            }
+            else if (g6.Text == "")
+            {
+                g6.Text = btn.Text;
+
+            }
+            else if (g7.Text == "")
+            {
+                g7.Text = btn.Text;
+
+            }
+
         }
 
         public void DisplayAnswers (Word w)
@@ -187,16 +232,18 @@ namespace WordGameDemo
                 }
             }
 
-            for (int i = 0; i < 7; i++)
-            {
-                HtmlGenericControl guessTileControl = new HtmlGenericControl();
-                guessTileControl.TagName = "p";
-                guessTileControl.Attributes["class"] = "guesstile";
-                //tileControl.InnerText = letterArray[i].ToString().ToUpper();
-                guessPanel.Controls.Add(guessTileControl);
-            }
+            //for (int i = 0; i < 7; i++)
+            //{
+            //    HtmlGenericControl guessTileControl = new HtmlGenericControl();
+            //    guessTileControl.TagName = "p";
+            //    guessTileControl.Attributes["class"] = "guesstile";
+            //    guessTileControl.Attributes["id"] = "guesstile" + i.ToString();
+            //    //tileControl.InnerText = letterArray[i].ToString().ToUpper();
+                
+            //    guessPanel.Controls.Add(guessTileControl);
+            //}
 
-            guessPanel.Controls.Add(new LiteralControl("<br />"));
+            //guessPanel.Controls.Add(new LiteralControl("<br />"));
 
         }
 
