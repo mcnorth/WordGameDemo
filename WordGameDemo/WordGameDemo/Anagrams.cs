@@ -7,7 +7,7 @@ namespace WordGameDemo
 {
     public class Anagrams
     {
-        public Dictionary<string, List<Letter>> AnagramWords { get; set; }
+        public Dictionary<string, List<Letter>> AnagramWords = new Dictionary<string, List<Letter>>();
         public string Word { get; set; }
         public List<Letter> LettersList { get; set; }
 

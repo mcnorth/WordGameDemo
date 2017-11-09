@@ -12,7 +12,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        
+       
         <div class="container">
             <div class="row" id="nameWord">
                 <asp:Panel ID ="nameWordPanel" runat="server"></asp:Panel>
@@ -42,7 +42,13 @@
                 <asp:Label ID="g7" CssClass="guesstile" runat="server"></asp:Label>
             </div>
             <br />
-            <asp:Panel ID="wordPanel" runat="server"></asp:Panel>
+            <div ID="wordPanel" runat="server"></div>
+            <br />
+            <div id="btnPanel">
+                <asp:Button ID="btnGuess" CssClass="btn btn-lg panelBtn" Text="Guess!" OnClick="btnGuess_Click" runat="server"/>
+                <asp:Button ID="btnClear" CssClass="btn btn-lg" Text="Clear" OnClick="btnClear_Click" runat="server"/>
+            </div>
+            
         </div>
     </form>
 </body>

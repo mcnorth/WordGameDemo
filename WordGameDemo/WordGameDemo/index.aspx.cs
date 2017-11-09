@@ -12,21 +12,27 @@ namespace WordGameDemo
 {
     public partial class index : System.Web.UI.Page
     {
-        
-        
-        
-
+                      
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            string path = System.Web.HttpContext.Current.Server.MapPath("~/files/words.json");
-            StreamReader rdr = new StreamReader(path);
-            string json = rdr.ReadToEnd();
+            if (!IsPostBack)
+            {
+                string path = System.Web.HttpContext.Current.Server.MapPath("~/files/words.json");
+                StreamReader rdr = new StreamReader(path);
+                string json = rdr.ReadToEnd();
 
-            var wordList = JsonConvert.DeserializeObject<List<Word>>(json);
+                var wordList = JsonConvert.DeserializeObject<List<Word>>(json);
 
-            DisplayWord(wordList);
-            
+                DisplayWord(wordList);
+            }
+            else
+            {
+                //use a session
+            }
+
+
+
+
         }
 
         public void DisplayWord(List<Word> wordlist)
@@ -34,20 +40,22 @@ namespace WordGameDemo
             Random rnd = new Random();
             int r = rnd.Next(wordlist.Count);
             Word w = wordlist[r];
+            w.GetAnagrams(w);
+            w.GetShuffleLetters(w);
             
 
-            var letterArray = w.Name.ToArray();
-            var shuffledLetters = letterArray.OrderBy(x => rnd.Next()).ToArray();
-
-            for(int i=0; i < shuffledLetters.Length; i++)
+            for(int i=0; i < w.ShuffledWord.Count; i++)
             {
+                var tile = w.ShuffledWord[i];
+                var id = w.ShuffledWord[i].Element + i.ToString();
                 Button tileControl = new Button();
                 tileControl.Attributes["class"] = "tile";
-                tileControl.Attributes["id"] = shuffledLetters[i] + i.ToString();
-                tileControl.Text = shuffledLetters[i].ToString().ToUpper();
-                tileControl.Click += TileControl_Click;              
+                tileControl.Attributes["id"] = id;                
+                tileControl.Text = tile.Element.ToString().ToUpper();
+                tileControl.Click += TileControl_Click;
                 wordPanel.Controls.Add(tileControl);
-                
+                tile.ID = id;
+
             }
 
             DisplayAnswers(w);
@@ -232,21 +240,24 @@ namespace WordGameDemo
                 }
             }
 
-            //for (int i = 0; i < 7; i++)
-            //{
-            //    HtmlGenericControl guessTileControl = new HtmlGenericControl();
-            //    guessTileControl.TagName = "p";
-            //    guessTileControl.Attributes["class"] = "guesstile";
-            //    guessTileControl.Attributes["id"] = "guesstile" + i.ToString();
-            //    //tileControl.InnerText = letterArray[i].ToString().ToUpper();
-                
-            //    guessPanel.Controls.Add(guessTileControl);
-            //}
-
-            //guessPanel.Controls.Add(new LiteralControl("<br />"));
+           
 
         }
 
-        
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            g1.Text = "";
+            g2.Text = "";
+            g3.Text = "";
+            g4.Text = "";
+            g5.Text = "";
+            g6.Text = "";
+            g7.Text = "";
+        }
+
+        protected void btnGuess_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
