@@ -12,7 +12,8 @@ namespace WordGameDemo
 {
     public partial class index : System.Web.UI.Page
     {
-                      
+        
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -27,7 +28,9 @@ namespace WordGameDemo
             }
             else
             {
-                //use a session
+                //get data from session obj
+                Word sessionData = (Word)Session["word"];
+                DisplaySavedWord(sessionData);
             }
 
 
@@ -40,30 +43,50 @@ namespace WordGameDemo
             Random rnd = new Random();
             int r = rnd.Next(wordlist.Count);
             Word w = wordlist[r];
+            Session["word"] = w;
             w.GetAnagrams(w);
             w.GetShuffleLetters(w);
-            
 
-            for(int i=0; i < w.ShuffledWord.Count; i++)
-            {
-                var tile = w.ShuffledWord[i];
-                var id = w.ShuffledWord[i].Element + i.ToString();
-                Button tileControl = new Button();
-                tileControl.Attributes["class"] = "tile";
-                tileControl.Attributes["id"] = id;                
-                tileControl.Text = tile.Element.ToString().ToUpper();
-                tileControl.Click += TileControl_Click;
-                wordPanel.Controls.Add(tileControl);
-                tile.ID = id;
+            t1.Text = w.ShuffledWord[0].Element.ToString();
+            t2.Text = w.ShuffledWord[1].Element.ToString();
+            t3.Text = w.ShuffledWord[2].Element.ToString();
+            t4.Text = w.ShuffledWord[3].Element.ToString();
+            t5.Text = w.ShuffledWord[4].Element.ToString();
+            t6.Text = w.ShuffledWord[5].Element.ToString();
+            t7.Text = w.ShuffledWord[6].Element.ToString();
 
-            }
+            //for(int i=0; i < w.ShuffledWord.Count; i++)
+            //{
+            //    var tile = w.ShuffledWord[i];
+            //    var id = w.ShuffledWord[i].Element + i.ToString();
+            //    Button tileControl = new Button();
+            //    tileControl.Attributes["class"] = "tile";
+            //    tileControl.Attributes["id"] = id;
+            //    tileControl.Text = tile.Element.ToString().ToUpper();
+            //    tileControl.Click += TileControl_Click;
+            //    wordPanel.Controls.Add(tileControl);
+            //    tile.ID = id;
+
+            //}
+
 
             DisplayAnswers(w);
         }
 
+        public void DisplaySavedWord(Word w)
+        {
+            t1.Text = w.ShuffledWord[0].Element.ToString();
+            t2.Text = w.ShuffledWord[1].Element.ToString();
+            t3.Text = w.ShuffledWord[2].Element.ToString();
+            t4.Text = w.ShuffledWord[3].Element.ToString();
+            t5.Text = w.ShuffledWord[4].Element.ToString();
+            t6.Text = w.ShuffledWord[5].Element.ToString();
+            t7.Text = w.ShuffledWord[6].Element.ToString();
+        }
+
         
 
-        private void TileControl_Click(object sender, EventArgs e)
+        public void TileControl1_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             string btnId = btn.ID;
@@ -71,36 +94,50 @@ namespace WordGameDemo
             if(g1.Text == "")
             {
                 g1.Text = btn.Text;
+                btn.Enabled = false;
+                btn.Visible = false;
                 
             }
             else if(g2.Text == "")
             {
                 g2.Text = btn.Text;
-                
+                btn.Enabled = false;
+                btn.Visible = false;
+
             }
             else if (g3.Text == "")
             {
                 g3.Text = btn.Text;
+                btn.Enabled = false;
+                btn.Visible = false;
 
             }
             else if (g4.Text == "")
             {
                 g4.Text = btn.Text;
+                btn.Enabled = false;
+                btn.Visible = false;
 
             }
             else if (g5.Text == "")
             {
                 g5.Text = btn.Text;
+                btn.Enabled = false;
+                btn.Visible = false;
 
             }
             else if (g6.Text == "")
             {
                 g6.Text = btn.Text;
+                btn.Enabled = false;
+                btn.Visible = false;
 
             }
             else if (g7.Text == "")
             {
                 g7.Text = btn.Text;
+                btn.Enabled = false;
+                btn.Visible = false;
 
             }
 
@@ -108,19 +145,17 @@ namespace WordGameDemo
 
         public void DisplayAnswers (Word w)
         {
-            if(w.ThreeLetters.Count > 0)
+            if(w.ThreeLetterAnagrams.Count > 0)
             {
                 HtmlGenericControl headingControl = new HtmlGenericControl();
                 headingControl.TagName = "p";
                 headingControl.Attributes["class"] = "aHeading";
                 headingControl.InnerHtml = "Three Letter Words";
                 answerPanel1.Controls.Add(headingControl);
-               
-                foreach (var word in w.ThreeLetters)
-                {
-                    var letterArray = word.ToArray();
 
-                    for (int i = 0; i < letterArray.Length; i++)
+                foreach (var word in w.ThreeLetterAnagrams)
+                {
+                    foreach(var letter in word.LettersList)
                     {
                         HtmlGenericControl atileControl = new HtmlGenericControl();
                         atileControl.TagName = "p";
@@ -130,13 +165,11 @@ namespace WordGameDemo
                     }
 
                     answerPanel1.Controls.Add(new LiteralControl("<br />"));
-
                 }
-
-                
+               
             }
 
-            if (w.FourLetters.Count > 0)
+            if (w.FourLetterAnagrams.Count > 0)
             {
                 HtmlGenericControl headingControl = new HtmlGenericControl();
                 headingControl.TagName = "p";
@@ -144,11 +177,9 @@ namespace WordGameDemo
                 headingControl.InnerHtml = "Four Letter Words";
                 answerPanel2.Controls.Add(headingControl);
 
-                foreach (var word in w.FourLetters)
+                foreach (var word in w.FourLetterAnagrams)
                 {
-                    var letterArray = word.ToArray();
-
-                    for (int i = 0; i < letterArray.Length; i++)
+                    foreach(var letter in word.LettersList)
                     {
                         HtmlGenericControl atileControl = new HtmlGenericControl();
                         atileControl.TagName = "p";
@@ -162,7 +193,7 @@ namespace WordGameDemo
                 }
             }
 
-            if (w.FiveLetters.Count > 0)
+            if (w.FiveLetterAnagrams.Count > 0)
             {
                 HtmlGenericControl headingControl = new HtmlGenericControl();
                 headingControl.TagName = "p";
@@ -170,11 +201,9 @@ namespace WordGameDemo
                 headingControl.InnerHtml = "Five Letter Words";
                 answerPanel3.Controls.Add(headingControl);
 
-                foreach (var word in w.FiveLetters)
+                foreach (var word in w.FiveLetterAnagrams)
                 {
-                    var letterArray = word.ToArray();
-
-                    for (int i = 0; i < letterArray.Length; i++)
+                    foreach(var letter in word.LettersList)
                     {
                         HtmlGenericControl atileControl = new HtmlGenericControl();
                         atileControl.TagName = "p";
@@ -188,7 +217,7 @@ namespace WordGameDemo
                 }
             }
 
-            if (w.SixLetters.Count > 0)
+            if (w.SixLetterAnagrams.Count > 0)
             {
                 HtmlGenericControl headingControl = new HtmlGenericControl();
                 headingControl.TagName = "p";
@@ -196,11 +225,9 @@ namespace WordGameDemo
                 headingControl.InnerHtml = "Six Letter Words";
                 answerPanel4.Controls.Add(headingControl);
 
-                foreach (var word in w.SixLetters)
+                foreach (var word in w.SixLetterAnagrams)
                 {
-                    var letterArray = word.ToArray();
-
-                    for (int i = 0; i < letterArray.Length; i++)
+                    foreach(var letter in word.LettersList)
                     {
                         HtmlGenericControl atileControl = new HtmlGenericControl();
                         atileControl.TagName = "p";
@@ -214,7 +241,7 @@ namespace WordGameDemo
                 }
             }
 
-            if (w.SevenLetters.Count > 0)
+            if (w.SevenLetterAnagrams.Count > 0)
             {
                 HtmlGenericControl topHeadingControl = new HtmlGenericControl();
                 topHeadingControl.TagName = "p";
@@ -222,11 +249,9 @@ namespace WordGameDemo
                 topHeadingControl.InnerHtml = "Seven Letter Words";
                 nameWordPanel.Controls.Add(topHeadingControl);
 
-                foreach (var word in w.SevenLetters)
+                foreach (var word in w.SevenLetterAnagrams)
                 {
-                    var letterArray = word.ToArray();
-
-                    for (int i = 0; i < letterArray.Length; i++)
+                    foreach(var letter in word.LettersList)
                     {
                         HtmlGenericControl topTileControl = new HtmlGenericControl();
                         topTileControl.TagName = "p";

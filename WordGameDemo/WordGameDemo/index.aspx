@@ -42,7 +42,15 @@
                 <asp:Label ID="g7" CssClass="guesstile" runat="server"></asp:Label>
             </div>
             <br />
-            <div ID="wordPanel" runat="server"></div>
+            <div ID="wordPanel" runat="server">
+                <asp:Button ID="t1" CssClass="tile" runat="server" OnClick="TileControl1_Click"/>
+                <asp:Button ID="t2" CssClass="tile" runat="server" OnClick="TileControl1_Click"/>
+                <asp:Button ID="t3" CssClass="tile" runat="server" OnClick="TileControl1_Click"/>
+                <asp:Button ID="t4" CssClass="tile" runat="server" OnClick="TileControl1_Click"/>
+                <asp:Button ID="t5" CssClass="tile" runat="server" OnClick="TileControl1_Click"/>
+                <asp:Button ID="t6" CssClass="tile" runat="server" OnClick="TileControl1_Click"/>
+                <asp:Button ID="t7" CssClass="tile" runat="server" OnClick="TileControl1_Click"/>
+            </div>
             <br />
             <div id="btnPanel">
                 <asp:Button ID="btnGuess" CssClass="btn btn-lg panelBtn" Text="Guess!" OnClick="btnGuess_Click" runat="server"/>
