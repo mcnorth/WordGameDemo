@@ -43,6 +43,8 @@ namespace WordGameDemo
             Random rnd = new Random();
             int r = rnd.Next(wordlist.Count);
             Word w = wordlist[r];
+            List<string> guessList = new List<string>();
+            Session["guessList"] = guessList;
             Session["word"] = w;
             w.GetAnagrams(w);
             w.GetShuffleLetters(w);
@@ -82,12 +84,15 @@ namespace WordGameDemo
             t5.Text = w.ShuffledWord[4].Element.ToString();
             t6.Text = w.ShuffledWord[5].Element.ToString();
             t7.Text = w.ShuffledWord[6].Element.ToString();
+
+            DisplayAnswers(w);
         }
 
         
 
         public void TileControl1_Click(object sender, EventArgs e)
         {
+            List<string> sessionList = (List<string>)Session["guessList"];
             Button btn = (Button)sender;
             string btnId = btn.ID;
 
@@ -96,6 +101,7 @@ namespace WordGameDemo
                 g1.Text = btn.Text;
                 btn.Enabled = false;
                 btn.Visible = false;
+                sessionList.Add(g1.Text);
                 
             }
             else if(g2.Text == "")
@@ -103,6 +109,7 @@ namespace WordGameDemo
                 g2.Text = btn.Text;
                 btn.Enabled = false;
                 btn.Visible = false;
+                sessionList.Add(g2.Text);
 
             }
             else if (g3.Text == "")
@@ -110,6 +117,7 @@ namespace WordGameDemo
                 g3.Text = btn.Text;
                 btn.Enabled = false;
                 btn.Visible = false;
+                sessionList.Add(g3.Text);
 
             }
             else if (g4.Text == "")
@@ -117,6 +125,7 @@ namespace WordGameDemo
                 g4.Text = btn.Text;
                 btn.Enabled = false;
                 btn.Visible = false;
+                sessionList.Add(g4.Text);
 
             }
             else if (g5.Text == "")
@@ -124,6 +133,7 @@ namespace WordGameDemo
                 g5.Text = btn.Text;
                 btn.Enabled = false;
                 btn.Visible = false;
+                sessionList.Add(g5.Text);
 
             }
             else if (g6.Text == "")
@@ -131,6 +141,7 @@ namespace WordGameDemo
                 g6.Text = btn.Text;
                 btn.Enabled = false;
                 btn.Visible = false;
+                sessionList.Add(g6.Text);
 
             }
             else if (g7.Text == "")
@@ -138,6 +149,7 @@ namespace WordGameDemo
                 g7.Text = btn.Text;
                 btn.Enabled = false;
                 btn.Visible = false;
+                sessionList.Add(g7.Text);
 
             }
 
@@ -271,6 +283,7 @@ namespace WordGameDemo
 
         protected void btnClear_Click(object sender, EventArgs e)
         {
+            List<string> sessionList = (List<string>)Session["guessList"];
             g1.Text = "";
             g2.Text = "";
             g3.Text = "";
@@ -278,11 +291,35 @@ namespace WordGameDemo
             g5.Text = "";
             g6.Text = "";
             g7.Text = "";
+
+            t1.Enabled = true;
+            t1.Visible = true;
+
+            t2.Enabled = true;
+            t2.Visible = true;
+
+            t3.Enabled = true;
+            t3.Visible = true;
+
+            t4.Enabled = true;
+            t4.Visible = true;
+
+            t5.Enabled = true;
+            t5.Visible = true;
+
+            t6.Enabled = true;
+            t6.Visible = true;
+
+            t7.Enabled = true;
+            t7.Visible = true;
+
+            sessionList.Clear();
         }
 
         protected void btnGuess_Click(object sender, EventArgs e)
         {
-
+            List<string> sessionList = (List<string>)Session["guessList"];
+            var guessWord = string.Join(String.Empty, sessionList);
         }
     }
 }
